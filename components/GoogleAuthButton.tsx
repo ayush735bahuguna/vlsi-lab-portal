@@ -10,17 +10,13 @@ import {
 } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 
-interface GoogleAuthButtonProps {
-  title: string;
-}
-
-const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({ title }) => {
+const GoogleAuthButton: React.FC = () => {
   const router = useRouter();
 
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
   const handleSuccess = async (credentialResponse: CredentialResponse) => {
     if (credentialResponse.credential) {
-      const decodedUser: any = jwtDecode(credentialResponse.credential);
+      const decodedUser = jwtDecode(credentialResponse.credential);
       localStorage.setItem("user", JSON.stringify(decodedUser));
       await localStorage.setItem("user", JSON.stringify(decodedUser));
       router.replace("/Dashboard");

@@ -1,7 +1,8 @@
 "use client";
 import GoogleAuthButton from "@/components/GoogleAuthButton";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 const App: React.FC = () => {
   const router = useRouter();
@@ -14,14 +15,14 @@ const App: React.FC = () => {
         console.log("No user loged in");
       }
     })();
-  }, []);
+  }, [router]);
 
   return (
     <>
       <div className="flex items-center justify-center h-screen">
         <div className="bg-white/95 min-w-1/2 mx-6">
           <div className="flex items-center justify-center min-w-1/2">
-            <img
+            <Image
               src="https://www.gbpuat.ac.in/img/Logo1.png"
               alt="Profile"
               className="w-1/4 h-auto"
@@ -37,7 +38,7 @@ const App: React.FC = () => {
             </p>
           </div>
 
-          <GoogleAuthButton title="Sign in with Google" />
+          <GoogleAuthButton />
 
           <div className="px-6 py-4 bg-gray-50/80">
             <p className="text-xs text-center w-full text-gray-500">

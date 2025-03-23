@@ -1,6 +1,7 @@
 "use client";
 import { db } from "@/lib/firebaseConfig";
-import { collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc } from "firebase/firestore";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 export default function Page() {
@@ -31,9 +32,10 @@ export default function Page() {
         setisVerified(AllowedEmails.includes(user.email));
       } catch (error) {
         setisVerified(false);
+        console.log(error);
       }
     })();
-  }, []);
+  }, [router]);
 
   if (isVerified === undefined)
     return (
@@ -56,7 +58,7 @@ export default function Page() {
       <div className="min-w-1/2 p-8 ">
         <div className="flex flex-col items-center text-center">
           <div className="flex items-center justify-center min-w-1/2">
-            <img
+            <Image
               src="https://www.gbpuat.ac.in/img/Logo1.png"
               alt="Profile"
               className="w-1/4 h-auto"

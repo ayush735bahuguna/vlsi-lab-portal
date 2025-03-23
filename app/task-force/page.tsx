@@ -32,7 +32,7 @@ const taskforces = [
     },
   },
   {
-    name: "Netlist/DRC/LVS/Extraction/Simulation setup flow",
+    name: "Netlist/DRC/ LVS/Extraction/ Simulation setup flow",
     tasks: [
       "Skill programming integration in Virtuoso",
       "Generate CDL netlist for LVS and simulation",

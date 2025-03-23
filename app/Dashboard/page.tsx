@@ -39,6 +39,7 @@ export default function Page() {
 
   const backToLogin = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("allowedUsersList");
     router.replace("/");
   };
 
@@ -54,11 +55,21 @@ export default function Page() {
 
         setUser(storedUser);
 
-        const docRef = doc(collection(db, "config"), "allowedUsersList");
-        const docSnap = await getDoc(docRef);
-        const allowedEmails = docSnap.exists()
-          ? docSnap.data().allowedUsers || []
-          : [];
+        let allowedEmails = JSON.parse(
+          localStorage.getItem("allowedUsersList") || "null"
+        );
+
+        if (!allowedEmails) {
+          const docRef = doc(collection(db, "config"), "allowedUsersList");
+          const docSnap = await getDoc(docRef);
+          allowedEmails = docSnap.exists()
+            ? docSnap.data()?.allowedUsers || []
+            : [];
+          localStorage.setItem(
+            "allowedUsersList",
+            JSON.stringify(allowedEmails)
+          );
+        }
 
         setIsVerified(allowedEmails.includes(storedUser.email));
       } catch (error) {
@@ -104,7 +115,6 @@ export default function Page() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1>
       {user && (
         <>
           <div className="flex flex-col items-center">
@@ -129,7 +139,7 @@ export default function Page() {
         </>
       )}
 
-      <div className="flex items-center justify-center gap-6 mt-6 text-gray-700">
+      <div className="flex items-center justify-center gap-6 mt-6 text-gray-700 flex-wrap">
         <Link
           href="/assignments"
           className="flex items-center gap-2 hover:underline"

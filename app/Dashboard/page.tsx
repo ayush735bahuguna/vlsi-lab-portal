@@ -5,10 +5,37 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Logo from "@/assets/Logo1.png";
+import Link from "next/link";
+import {
+  LogOut,
+  FileText,
+  BookOpen,
+  File,
+  ListChecks,
+  HelpCircle,
+} from "lucide-react";
+
+type GoogleUser = {
+  iss: string;
+  azp: string;
+  aud: string;
+  sub: string;
+  email: string;
+  email_verified: boolean;
+  nbf: number;
+  name: string;
+  picture: string;
+  given_name: string;
+  family_name: string;
+  iat: number;
+  exp: number;
+  jti: string;
+};
 
 export default function Page() {
   const router = useRouter();
-  const [isVerified, setisVerified] = useState<boolean | undefined>(undefined);
+  const [isVerified, setIsVerified] = useState<boolean | null>(null);
+  const [user, setUser] = useState<GoogleUser | null>(null);
 
   const backToLogin = () => {
     localStorage.removeItem("user");
@@ -16,57 +43,49 @@ export default function Page() {
   };
 
   useEffect(() => {
-    (async () => {
+    const fetchUserVerification = async () => {
       try {
-        const user = JSON.parse(localStorage.getItem("user") || "{}");
-        if (!user?.email) {
+        const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
+
+        if (!storedUser?.email) {
           router.replace("/");
           return;
         }
 
+        setUser(storedUser);
+
         const docRef = doc(collection(db, "config"), "allowedUsersList");
         const docSnap = await getDoc(docRef);
+        const allowedEmails = docSnap.exists()
+          ? docSnap.data().allowedUsers || []
+          : [];
 
-        const AllowedEmails = docSnap.exists()
-          ? docSnap.data().allowedUsers
-          : [""];
-
-        setisVerified(AllowedEmails.includes(user.email));
+        setIsVerified(allowedEmails.includes(storedUser.email));
       } catch (error) {
-        setisVerified(false);
-        console.log(error);
+        console.error("Error fetching user data:", error);
+        setIsVerified(false);
       }
-    })();
+    };
+
+    fetchUserVerification();
   }, [router]);
 
-  if (isVerified === undefined)
+  if (isVerified === null)
     return (
-      <div className="flex items-center justify-center h-dvh w-dvw">
-        <p>Loading...</p>
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <p className="text-lg font-semibold text-gray-700">Loading...</p>
       </div>
     );
-  return isVerified ? (
-    <>
-      <div>Dashboard</div>
-      <button
-        onClick={backToLogin}
-        className="mt-6 w-full rounded-lg bg-red-500 px-6 py-2 text-white transition-all duration-300 hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-300"
-      >
-        Log out
-      </button>
-    </>
-  ) : (
-    <div className="flex min-h-screen flex-col items-center justify-center px-4">
-      <div className="min-w-1/2 p-8 ">
-        <div className="flex flex-col items-center text-center">
-          <div className="flex items-center justify-center min-w-1/2">
-            <Image
-              src={Logo}
-              alt="Profile"
-              className="w-1/4 h-auto"
-              style={{ borderRadius: "50%" }}
-            />
-          </div>
+
+  if (!isVerified)
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center px-6 ">
+        <div className="p-8 bg-white text-center rounded-lg shadow-md">
+          <Image
+            src={Logo}
+            alt="Access Denied"
+            className="w-24 h-24 mx-auto mb-4"
+          />
           <h1 className="text-2xl font-semibold text-gray-800">
             Access Denied
           </h1>
@@ -75,11 +94,66 @@ export default function Page() {
           </p>
           <button
             onClick={backToLogin}
-            className="mt-6 w-full rounded-lg bg-red-500 px-6 py-2 text-white transition-all duration-300 hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-300"
+            className="mt-6 w-full flex items-center justify-center gap-2 rounded-lg bg-red-500 px-6 py-2 text-white text-lg font-semibold transition-all duration-300 hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-300"
           >
-            Back to Login
+            <LogOut size={20} /> Back to Login
           </button>
         </div>
+      </div>
+    );
+
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1>
+      {user && (
+        <>
+          <div className="flex flex-col items-center">
+            <div className="h-20 w-20 rounded-full overflow-hidden border border-gray-200">
+              <Image
+                src={user.picture}
+                alt={user.name}
+                width={100}
+                height={100}
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <h3 className="font-medium text-lg mt-2">{user.name}</h3>
+            <p className="text-sm text-gray-500">{user.email}</p>
+          </div>
+          <button
+            className="mt-4 flex items-center justify-center gap-2 min-w-[200px] py-2 px-4 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition"
+            onClick={backToLogin}
+          >
+            <LogOut size={20} /> Sign Out
+          </button>
+        </>
+      )}
+
+      <div className="flex items-center justify-center gap-6 mt-6 text-gray-700">
+        <Link
+          href="/assignments"
+          className="flex items-center gap-2 hover:underline"
+        >
+          <FileText size={20} /> Assignments
+        </Link>
+        <Link href="/pdfs" className="flex items-center gap-2 hover:underline">
+          <File size={20} /> PDFs
+        </Link>
+        <Link
+          href="/lectures"
+          className="flex items-center gap-2 hover:underline"
+        >
+          <BookOpen size={20} /> Lectures
+        </Link>
+        <Link
+          href="/task-force"
+          className="flex items-center gap-2 hover:underline"
+        >
+          <ListChecks size={20} /> Task Force
+        </Link>
+        <Link href="/faqs" className="flex items-center gap-2 hover:underline">
+          <HelpCircle size={20} /> FAQ
+        </Link>
       </div>
     </div>
   );

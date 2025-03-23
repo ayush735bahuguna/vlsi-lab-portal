@@ -38,8 +38,9 @@ const App: React.FC = () => {
               Sign in with your Google account to access the VLSI Lab resources
             </p>
           </div>
-
-          <GoogleAuthButton />
+          <div className="flex items-center justify-center">
+            <GoogleAuthButton />
+          </div>
 
           <div className="px-6 py-4 bg-gray-50/80">
             <p className="text-xs text-center w-full text-gray-500">

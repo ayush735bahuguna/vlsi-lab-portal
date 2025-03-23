@@ -4,6 +4,8 @@ import { collection, doc, getDoc } from "firebase/firestore";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import Logo from "@/assets/Logo1.png";
+
 export default function Page() {
   const router = useRouter();
   const [isVerified, setisVerified] = useState<boolean | undefined>(undefined);
@@ -59,7 +61,7 @@ export default function Page() {
         <div className="flex flex-col items-center text-center">
           <div className="flex items-center justify-center min-w-1/2">
             <Image
-              src="https://www.gbpuat.ac.in/img/Logo1.png"
+              src={Logo}
               alt="Profile"
               className="w-1/4 h-auto"
               style={{ borderRadius: "50%" }}

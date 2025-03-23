@@ -3,6 +3,7 @@ import GoogleAuthButton from "@/components/GoogleAuthButton";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
+import Logo from "@/assets/Logo1.png";
 
 const App: React.FC = () => {
   const router = useRouter();
@@ -23,7 +24,7 @@ const App: React.FC = () => {
         <div className="bg-white/95 min-w-1/2 mx-6">
           <div className="flex items-center justify-center min-w-1/2">
             <Image
-              src="https://www.gbpuat.ac.in/img/Logo1.png"
+              src={Logo}
               alt="Profile"
               className="w-1/4 h-auto"
               style={{ borderRadius: "50%" }}

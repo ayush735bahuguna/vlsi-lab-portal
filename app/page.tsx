@@ -30,7 +30,7 @@ const App: React.FC = () => {
               style={{ borderRadius: "50%" }}
             />
           </div>
-          <div className="p-6 border-b border-gray-100">
+          <div className="p-6">
             <h2 className="text-4xl font-bold text-center text-gray-900">
               VLSI LAB
             </h2>
@@ -38,7 +38,7 @@ const App: React.FC = () => {
               Sign in with your Google account to access the VLSI Lab resources
             </p>
           </div>
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center my-3">
             <GoogleAuthButton />
           </div>
 

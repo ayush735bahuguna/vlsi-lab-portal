@@ -3,7 +3,7 @@ import { db } from "@/lib/firebaseConfig";
 import { collection, doc, getDoc } from "firebase/firestore";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Logo from "@/assets/Logo1.png";
 import Link from "next/link";
 import {
@@ -14,6 +14,7 @@ import {
   ListChecks,
   HelpCircle,
 } from "lucide-react";
+import Cryptr from "cryptr";
 
 type GoogleUser = {
   iss: string;
@@ -37,6 +38,12 @@ export default function Page() {
   const [isVerified, setIsVerified] = useState<boolean | null>(null);
   const [user, setUser] = useState<GoogleUser | null>(null);
 
+  // Memoize Cryptr to avoid re-creation
+  const cryptr = useMemo(
+    () => new Cryptr(process.env.NEXT_PUBLIC_SECRET_KEY || "key"),
+    []
+  );
+
   const backToLogin = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("allowedUsersList");
@@ -47,7 +54,6 @@ export default function Page() {
     const fetchUserVerification = async () => {
       try {
         const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
-
         if (!storedUser?.email) {
           router.replace("/");
           return;
@@ -55,9 +61,16 @@ export default function Page() {
 
         setUser(storedUser);
 
-        let allowedEmails = JSON.parse(
-          localStorage.getItem("allowedUsersList") || "null"
-        );
+        let allowedEmails: string[] | null = null;
+        const storedAllowedUsers = localStorage.getItem("allowedUsersList");
+
+        if (storedAllowedUsers) {
+          try {
+            allowedEmails = JSON.parse(cryptr.decrypt(storedAllowedUsers));
+          } catch {
+            localStorage.removeItem("allowedUsersList"); // Handle corrupted data
+          }
+        }
 
         if (!allowedEmails) {
           const docRef = doc(collection(db, "config"), "allowedUsersList");
@@ -65,13 +78,16 @@ export default function Page() {
           allowedEmails = docSnap.exists()
             ? docSnap.data()?.allowedUsers || []
             : [];
+
           localStorage.setItem(
             "allowedUsersList",
-            JSON.stringify(allowedEmails)
+            cryptr.encrypt(JSON.stringify(allowedEmails))
           );
         }
 
-        setIsVerified(allowedEmails.includes(storedUser.email));
+        if (allowedEmails) {
+          setIsVerified(allowedEmails.includes(storedUser.email));
+        }
       } catch (error) {
         console.error("Error fetching user data:", error);
         setIsVerified(false);
@@ -79,12 +95,12 @@ export default function Page() {
     };
 
     fetchUserVerification();
-  }, [router]);
+  }, [router, cryptr]);
 
   if (isVerified === null)
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <p className="text-lg font-semibold text-gray-700">Loading...</p>
+        <p className="text-lg font-semibold text-gray-700">loading...</p>
       </div>
     );
 

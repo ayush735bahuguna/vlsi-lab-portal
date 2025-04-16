@@ -8,30 +8,50 @@ interface Lecture {
   title: string;
   description: string;
   videoUrl: string;
-  date: string;
 }
 
 const dummyLectures: Lecture[] = [
   {
     id: "1",
-    title: "Introduction to React",
-    description: "A beginner-friendly guide to React.js basics.",
-    videoUrl: "https://www.example.com/react-intro",
-    date: "2025-03-15",
+    title: "PDK Analysis Lab",
+    description: "Deep dive into closures, hoisting, and async programming.",
+    videoUrl:
+      "https://drive.google.com/drive/folders/1Eg_aFAdf4L_y6k2I7ybKnwEypJh0VFuQ",
   },
   {
     id: "2",
-    title: "Advanced JavaScript",
+    title: "Layout",
     description: "Deep dive into closures, hoisting, and async programming.",
-    videoUrl: "https://www.example.com/js-advanced",
-    date: "2025-03-10",
+    videoUrl:
+      "https://drive.google.com/drive/folders/1t7Q9tyo-FUFQsH4oIMeUAa98qcPEO72j?usp=drive_link ",
   },
   {
     id: "3",
-    title: "CSS Grid & Flexbox",
+    title: "Design",
     description: "Master layout techniques with CSS Grid and Flexbox.",
-    videoUrl: "https://www.example.com/css-layouts",
-    date: "2025-03-08",
+    videoUrl:
+      "https://drive.google.com/drive/folders/1LX1XO7dUU0G_u5z3CVtJCYwMVimywkff?usp=drive_link ",
+  },
+  {
+    id: "4",
+    title: "External Lectures- Fischer",
+    description: "Master layout techniques with CSS Grid and Flexbox.",
+    videoUrl:
+      "https://drive.google.com/drive/folders/1ctkCEyGiUTSvAbR4JdtRS6wRufV6Lzuu",
+  },
+  {
+    id: "5",
+    title: "External Lectures-Westand Harris",
+    description: "Master layout techniques with CSS Grid and Flexbox.",
+    videoUrl:
+      "https://drive.google.com/drive/folders/1bag-gyS7Bnvkwi1yRLtyK2jMV2Fdr3Vr",
+  },
+  {
+    id: "6",
+    title: "Linux",
+    description: "Master layout techniques with CSS Grid and Flexbox.",
+    videoUrl:
+      "https://drive.google.com/drive/folders/14QN2sJk9ZolxXNPYMohCSVUimeX9pYdh?usp=drive_link ",
   },
 ];
 
@@ -65,12 +85,12 @@ export default function LecturesPage() {
                   <Video className="h-5 w-5 text-blue-500" />
                   {lecture.title}
                 </div>
-                <p className="text-sm text-gray-600 mt-2 mb-4">
+                {/* <p className="text-sm text-gray-600 mt-2 mb-4">
                   {lecture.description}
-                </p>
-                <p className="text-sm text-gray-500 mb-4">
+                </p> */}
+                {/* <p className="text-sm text-gray-500 mb-4">
                   Date: {new Date(lecture.date).toLocaleDateString()}
-                </p>
+                </p> */}
                 <a
                   href={lecture.videoUrl}
                   target="_blank"

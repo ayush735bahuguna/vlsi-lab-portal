@@ -13,33 +13,31 @@ interface Document {
 const dummyDocuments: Document[] = [
   {
     id: "1",
-    title: "Lab Report 1",
-    fileUrl: "#",
-    category: "Electrical",
+    title: "PDK Analysis Lab",
+    fileUrl:
+      "https://drive.google.com/drive/folders/1xMkBCvjMUWI4MzPpj7Kgimd_Hem7dvcy?usp=drive_link ",
+    category: "",
   },
   {
     id: "2",
-    title: "Lab Report 2",
-    fileUrl: "#",
-    category: "Electronics",
+    title: "Layout",
+    fileUrl:
+      "https://drive.google.com/drive/folders/1vg0izITWH1NOHWQRsHPH38GYpO50gzYn?usp=drive_link",
+    category: "",
   },
   {
     id: "3",
-    title: "Lab Report 3",
-    fileUrl: "#",
-    category: "Embedded Systems",
+    title: "Design",
+    fileUrl:
+      "https://drive.google.com/drive/folders/1tNyyBR12geR-EdyJLcQ-WNqe6ssGKaN5?usp=drive_link",
+    category: "",
   },
   {
     id: "4",
-    title: "Lab Report 4",
-    fileUrl: "#",
-    category: "Electrical",
-  },
-  {
-    id: "5",
-    title: "Lab Report 5",
-    fileUrl: "#",
-    category: "Telecommunications",
+    title: "Linux",
+    fileUrl:
+      "https://drive.google.com/drive/folders/1OYLIpRgi7du_ej4Fw_t2SELOVp7nQNf3",
+    category: "",
   },
 ];
 
@@ -49,7 +47,7 @@ export default function PDFsPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Lab Documents</h1>
+      <h1 className="text-3xl font-bold mb-8">Reference Documents</h1>
       {categories.map((category) => (
         <div key={category} className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">{category}</h2>
@@ -73,7 +71,7 @@ export default function PDFsPage() {
                     className="block text-center bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition"
                   >
                     <div className="flex items-center justify-center gap-2">
-                      <Download className="h-4 w-4" /> Download PDF
+                      <Download className="h-4 w-4" /> Download
                     </div>
                   </a>
                 </div>

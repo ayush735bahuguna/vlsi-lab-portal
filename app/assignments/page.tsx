@@ -1,39 +1,20 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Lightbulb, Calendar, Download } from "lucide-react";
+import { Lightbulb, Download } from "lucide-react";
 
 interface Assignment {
   id: string;
   title: string;
-  dueDate: string;
   fileUrl: string;
 }
 
 const dummyAssignments: Assignment[] = [
   {
-    id: "1",
-    title: "Introduction to React",
-    dueDate: "2025-04-10",
-    fileUrl: "#",
-  },
-  {
-    id: "2",
-    title: "Firebase Authentication",
-    dueDate: "2025-04-15",
-    fileUrl: "#",
-  },
-  {
-    id: "3",
-    title: "State Management with Redux",
-    dueDate: "2025-04-20",
-    fileUrl: "#",
-  },
-  {
-    id: "5",
-    title: "State Management with Redux",
-    dueDate: "2025-04-20",
-    fileUrl: "#",
+    id: "",
+    title: "Cadence Logbook",
+    fileUrl:
+      "https://onedrive.live.com/personal/32ea012a06c155e9/_layouts/15/Doc.aspx?sourcedoc=%7Becd29b5c-ba06-4e90-a00b-a5da1fad33f3%7D&action=default&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy8zMmVhMDEyYTA2YzE1NWU5L0VWeWIwdXdHdXBCT29BdWwyaC10TV9NQlhXeUMtcnlxTU5ITzg2QTRGWTdhWFE_ZT1KSzNEVFE&slrid=05a594a1-60b2-8000-a654-41891141c3d2&originalPath=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy8zMmVhMDEyYTA2YzE1NWU5L0VWeWIwdXdHdXBCT29BdWwyaC10TV9NQlhXeUMtcnlxTU5ITzg2QTRGWTdhWFE_cnRpbWU9bkdKMDdPWjczVWc&CID=1cd12da0-9ed8-4a96-b24d-676157f86145&_SRM=0:G:58&file=cadence_assignments.pptx",
   },
 ];
 
@@ -50,7 +31,7 @@ export default function AssignmentsPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">All Assignments</h1>
+      <h1 className="text-3xl font-bold mb-8">Assignments</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {loading
           ? Array.from({ length: 3 }).map((_, index) => (
@@ -70,12 +51,12 @@ export default function AssignmentsPage() {
                     {assignment.title}
                   </h2>
                 </div>
-                <div className="flex items-center gap-2 text-gray-500 text-sm mb-4">
+                {/* <div className="flex items-center gap-2 text-gray-500 text-sm mb-4">
                   <Calendar className="h-4 w-4" />
                   <span>
                     Due: {new Date(assignment.dueDate).toLocaleDateString()}
                   </span>
-                </div>
+                </div> */}
                 <a
                   href={assignment.fileUrl}
                   target="_blank"
@@ -83,7 +64,7 @@ export default function AssignmentsPage() {
                   className="block text-center bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
                 >
                   <Download className="inline h-4 w-4 mr-2" />
-                  Download Assignment
+                  Open Assignment
                 </a>
               </div>
             ))}

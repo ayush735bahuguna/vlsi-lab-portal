@@ -163,7 +163,7 @@ export default function Page() {
           <FileText size={20} /> Assignments
         </Link>
         <Link href="/pdfs" className="flex items-center gap-2 hover:underline">
-          <File size={20} /> PDFs
+          <File size={20} /> Documents
         </Link>
         <Link
           href="/lectures"
@@ -179,6 +179,12 @@ export default function Page() {
         </Link>
         <Link href="/faqs" className="flex items-center gap-2 hover:underline">
           <HelpCircle size={20} /> FAQ
+        </Link>
+        <Link
+          href="https://youtube.com/playlist?list=PLAHCLYSq3g_iqVrCNHigtGFH-QWdFdEA5&si=A7RotX4WpZuJvoRs"
+          className="flex items-center gap-2 hover:underline"
+        >
+          <File size={20} /> External Videos
         </Link>
       </div>
     </div>

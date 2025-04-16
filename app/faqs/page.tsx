@@ -1,17 +1,15 @@
-"use client";
+// import { useState } from "react";
+// import { HelpCircle, Video, ExternalLink } from "lucide-react";
 
-import { useState } from "react";
-import { HelpCircle, Video, ExternalLink } from "lucide-react";
+// interface FAQ {
+//   id: string;
+//   question: string;
+//   answer: string;
+//   videoUrl?: string;
+//   category: string;
+// }
 
-interface FAQ {
-  id: string;
-  question: string;
-  answer: string;
-  videoUrl?: string;
-  category: string;
-}
-
-const dummyFAQs: FAQ[] = [];
+// const dummyFAQs: FAQ[] = [];
 
 export default function FAQsPage() {
   // const [faqs] = useState<FAQ[]>(dummyFAQs);

@@ -41,13 +41,6 @@ const dummyLectures: Lecture[] = [
   },
   {
     id: "5",
-    title: "External Lectures-Westand Harris",
-    description: "Master layout techniques with CSS Grid and Flexbox.",
-    videoUrl:
-      "https://drive.google.com/drive/folders/1bag-gyS7Bnvkwi1yRLtyK2jMV2Fdr3Vr",
-  },
-  {
-    id: "6",
     title: "Linux",
     description: "Master layout techniques with CSS Grid and Flexbox.",
     videoUrl:

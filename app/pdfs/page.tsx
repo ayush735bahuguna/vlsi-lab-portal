@@ -39,6 +39,13 @@ const dummyDocuments: Document[] = [
       "https://drive.google.com/drive/folders/1OYLIpRgi7du_ej4Fw_t2SELOVp7nQNf3",
     category: "",
   },
+  {
+    id: "5",
+    title: "External-Westand Harris",
+    fileUrl:
+      "https://drive.google.com/drive/folders/1bag-gyS7Bnvkwi1yRLtyK2jMV2Fdr3Vr",
+    category: "",
+  },
 ];
 
 export default function PDFsPage() {
@@ -71,7 +78,7 @@ export default function PDFsPage() {
                     className="block text-center bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition"
                   >
                     <div className="flex items-center justify-center gap-2">
-                      <Download className="h-4 w-4" /> Download
+                      <Download className="h-4 w-4" /> View
                     </div>
                   </a>
                 </div>

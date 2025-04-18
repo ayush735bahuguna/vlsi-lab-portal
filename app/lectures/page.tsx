@@ -34,13 +34,6 @@ const dummyLectures: Lecture[] = [
   },
   {
     id: "4",
-    title: "External Lectures- Fischer",
-    description: "Master layout techniques with CSS Grid and Flexbox.",
-    videoUrl:
-      "https://drive.google.com/drive/folders/1ctkCEyGiUTSvAbR4JdtRS6wRufV6Lzuu",
-  },
-  {
-    id: "5",
     title: "Linux",
     description: "Master layout techniques with CSS Grid and Flexbox.",
     videoUrl:

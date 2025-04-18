@@ -12,7 +12,7 @@ interface Assignment {
 const dummyAssignments: Assignment[] = [
   {
     id: "",
-    title: "Cadence Logbook",
+    title: "VLSI Lab Logbook",
     fileUrl:
       "https://onedrive.live.com/personal/32ea012a06c155e9/_layouts/15/Doc.aspx?sourcedoc=%7Becd29b5c-ba06-4e90-a00b-a5da1fad33f3%7D&action=default&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy8zMmVhMDEyYTA2YzE1NWU5L0VWeWIwdXdHdXBCT29BdWwyaC10TV9NQlhXeUMtcnlxTU5ITzg2QTRGWTdhWFE_ZT1KSzNEVFE&slrid=05a594a1-60b2-8000-a654-41891141c3d2&originalPath=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy8zMmVhMDEyYTA2YzE1NWU5L0VWeWIwdXdHdXBCT29BdWwyaC10TV9NQlhXeUMtcnlxTU5ITzg2QTRGWTdhWFE_cnRpbWU9bkdKMDdPWjczVWc&CID=1cd12da0-9ed8-4a96-b24d-676157f86145&_SRM=0:G:58&file=cadence_assignments.pptx",
   },

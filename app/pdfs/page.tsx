@@ -46,6 +46,13 @@ const dummyDocuments: Document[] = [
       "https://drive.google.com/drive/folders/1bag-gyS7Bnvkwi1yRLtyK2jMV2Fdr3Vr",
     category: "",
   },
+  {
+    id: "6",
+    title: "External-Fischer",
+    fileUrl:
+      "https://drive.google.com/drive/folders/1ctkCEyGiUTSvAbR4JdtRS6wRufV6Lzuu",
+    category: "",
+  },
 ];
 
 export default function PDFsPage() {

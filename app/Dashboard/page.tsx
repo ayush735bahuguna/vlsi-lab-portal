@@ -143,7 +143,9 @@ export default function Page() {
                 className="h-full w-full object-cover"
               />
             </div>
-            <h3 className="font-medium text-lg mt-2">{user.name}</h3>
+            <h3 className="font-medium text-lg mt-2">
+              {user.name?.toUpperCase()}
+            </h3>
             <p className="text-sm text-gray-500">{user.email}</p>
           </div>
           <button

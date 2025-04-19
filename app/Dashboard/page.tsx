@@ -65,6 +65,7 @@ export default function Page() {
         setIsVerified(EmailsArray.includes(storedUser.email));
       }
     } catch (error) {
+      console.log(error);
       setIsVerified(false);
     }
   }, [router, cryptr]);

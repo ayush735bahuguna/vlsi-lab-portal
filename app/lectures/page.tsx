@@ -1,6 +1,3 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import { Video, ExternalLink } from "lucide-react";
 
 interface Lecture {
@@ -42,19 +39,11 @@ const dummyLectures: Lecture[] = [
 ];
 
 export default function LecturesPage() {
-  const [lectures, setLectures] = useState<Lecture[]>([]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLectures(dummyLectures);
-    }, 1000);
-  }, []);
-
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Lecture Recordings</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {lectures.length === 0
+        {dummyLectures.length === 0
           ? [1, 2, 3].map((i) => (
               <div key={i} className="bg-gray-100 p-4 rounded-lg animate-pulse">
                 <div className="h-6 w-3/4 bg-gray-300 mb-2"></div>
@@ -62,7 +51,7 @@ export default function LecturesPage() {
                 <div className="h-4 w-2/3 bg-gray-300"></div>
               </div>
             ))
-          : lectures.map((lecture) => (
+          : dummyLectures.map((lecture) => (
               <div
                 key={lecture.id}
                 className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow"
@@ -71,12 +60,7 @@ export default function LecturesPage() {
                   <Video className="h-5 w-5 text-blue-500" />
                   {lecture.title}
                 </div>
-                {/* <p className="text-sm text-gray-600 mt-2 mb-4">
-                  {lecture.description}
-                </p> */}
-                {/* <p className="text-sm text-gray-500 mb-4">
-                  Date: {new Date(lecture.date).toLocaleDateString()}
-                </p> */}
+
                 <a
                   href={lecture.videoUrl}
                   target="_blank"

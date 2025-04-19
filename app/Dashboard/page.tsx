@@ -1,6 +1,4 @@
 "use client";
-import { db } from "@/lib/firebaseConfig";
-import { collection, doc, getDoc } from "firebase/firestore";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState, useMemo } from "react";
@@ -38,7 +36,6 @@ export default function Page() {
   const [isVerified, setIsVerified] = useState<boolean | null>(null);
   const [user, setUser] = useState<GoogleUser | null>(null);
 
-  // Memoize Cryptr to avoid re-creation
   const cryptr = useMemo(
     () => new Cryptr(process.env.NEXT_PUBLIC_SECRET_KEY || "key"),
     []
@@ -46,55 +43,28 @@ export default function Page() {
 
   const backToLogin = () => {
     localStorage.removeItem("user");
-    localStorage.removeItem("allowedUsersList");
     router.replace("/");
   };
 
   useEffect(() => {
-    const fetchUserVerification = async () => {
-      try {
-        const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
-        if (!storedUser?.email) {
-          router.replace("/");
-          return;
-        }
+    const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
+    if (!storedUser?.email) {
+      router.replace("/");
+      return;
+    }
 
-        setUser(storedUser);
+    setUser(storedUser);
 
-        let allowedEmails: string[] | null = null;
-        const storedAllowedUsers = localStorage.getItem("allowedUsersList");
+    const allowedEmails: string =
+      "bb736cdff658c5a14481cb46ca2ff1a33d2b4f3c53ff8a780b855096842b2405679b82d783ef0ad088e7a8cde1cce308ebb5c278fbde0dc6fb404eb5697e6a25c41a2c3d708eabb72b53f567a51684aa50f35f047e3251a4704c918d0ce33cebecff08a2dcd7bd08ebdceb088510a346433ab2e1efdedf234e2780a0bb4ab9aa53bb9b562979b3d31861de13f12800bf5a59fd9dc6e9b1";
 
-        if (storedAllowedUsers) {
-          try {
-            allowedEmails = JSON.parse(cryptr.decrypt(storedAllowedUsers));
-          } catch {
-            localStorage.removeItem("allowedUsersList"); // Handle corrupted data
-          }
-        }
+    const EmailsArray = JSON.parse(cryptr.decrypt(allowedEmails));
 
-        if (!allowedEmails) {
-          const docRef = doc(collection(db, "config"), "allowedUsersList");
-          const docSnap = await getDoc(docRef);
-          allowedEmails = docSnap.exists()
-            ? docSnap.data()?.allowedUsers || []
-            : [];
-
-          localStorage.setItem(
-            "allowedUsersList",
-            cryptr.encrypt(JSON.stringify(allowedEmails))
-          );
-        }
-
-        if (allowedEmails) {
-          setIsVerified(allowedEmails.includes(storedUser.email));
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        setIsVerified(false);
-      }
-    };
-
-    fetchUserVerification();
+    if (allowedEmails) {
+      setIsVerified(EmailsArray.includes(storedUser.email));
+      return;
+    }
+    setIsVerified(false);
   }, [router, cryptr]);
 
   if (isVerified === null)

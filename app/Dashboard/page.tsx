@@ -12,7 +12,6 @@ import {
   ListChecks,
   HelpCircle,
 } from "lucide-react";
-import Cryptr from "cryptr";
 
 type GoogleUser = {
   iss: string;
@@ -36,39 +35,27 @@ export default function Page() {
   const [isVerified, setIsVerified] = useState<boolean | null>(null);
   const [user, setUser] = useState<GoogleUser | null>(null);
 
-  const cryptr = useMemo(
-    () => new Cryptr(process.env.NEXT_PUBLIC_SECRET_KEY || "key"),
-    []
-  );
-
   const backToLogin = () => {
     localStorage.removeItem("user");
     router.replace("/");
   };
 
   useEffect(() => {
-    try {
-      const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
-      if (!storedUser?.email) {
-        router.replace("/");
-        return;
-      }
-
-      setUser(storedUser);
-
-      const allowedEmails: string =
-        "bb736cdff658c5a14481cb46ca2ff1a33d2b4f3c53ff8a780b855096842b2405679b82d783ef0ad088e7a8cde1cce308ebb5c278fbde0dc6fb404eb5697e6a25c41a2c3d708eabb72b53f567a51684aa50f35f047e3251a4704c918d0ce33cebecff08a2dcd7bd08ebdceb088510a346433ab2e1efdedf234e2780a0bb4ab9aa53bb9b562979b3d31861de13f12800bf5a59fd9dc6e9b1";
-
-      const EmailsArray = cryptr.decrypt(allowedEmails);
-
-      if (EmailsArray) {
-        setIsVerified(EmailsArray.includes(storedUser.email));
-      }
-    } catch (error) {
-      console.log(error);
-      setIsVerified(false);
+    const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
+    if (!storedUser?.email) {
+      router.replace("/");
+      return;
     }
-  }, [router, cryptr]);
+
+    setUser(storedUser);
+
+    const EmailsArray = [
+      "ayushbahuguna1122@gmail.com",
+      "vlsilab.cot@gmail.com",
+    ];
+
+    setIsVerified(EmailsArray.includes(storedUser.email));
+  }, [router]);
 
   if (isVerified === null)
     return (

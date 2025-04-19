@@ -5,16 +5,18 @@ import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "COT VLSI LAB",
-  description: "created by Ayush",
+  description: "Created by Ayush Bahuguna",
 };
 
 export default function RootLayout({
